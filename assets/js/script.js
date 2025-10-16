@@ -23,14 +23,14 @@ numeri_generati.forEach(num => {
     numbers.appendChild(li);
 });
 
-setTimeout(nascondi_numeri, 2000);
+setTimeout(nascondi_numeri, 30000);
 
 function nascondi_numeri() {
     numbers.textContent = "";
 }
 
 
-setTimeout(banner, 4000);
+setTimeout(banner, 30000);
 
 function banner() {
     myForm.classList.remove('d-none');
@@ -59,19 +59,34 @@ myForm.addEventListener("submit", function (event) {
                 // Se il numero dell’utente corrisponde a uno dei numeri generati
 
                 // Controllo per evitare duplicati nell’array "indovinati"
-                let giaPresente = false;
+                let gia_presente = false;
                 for (let k = 0; k < indovinati.length; k++) {
                     if (indovinati[k] === numeri_utente[i]) {
-                        giaPresente = true;
+                        gia_presente = true;
                         break;
                     }
                 }
-                // Se il numero non è già presente, lo aggiungo all’array "indovinati"
-                if (!giaPresente) {
+                if (gia_presente === false) {
+                    // Se il numero non è già presente nell'array "indovinati", lo aggiungo
                     indovinati.push(numeri_utente[i]);
-                }
+                } 
             }
         }
+    }
+    // Creo la stringa dei numeri indovinati
+    let numeri_stringa = "";
+
+    for (let i = 0; i < indovinati.length; i++) {
+        numeri_stringa += indovinati[i];
+        if (i !== indovinati.length - 1) {
+            numeri_stringa += ", ";
+        }
+    }
+    // Mostro il risultato in HTML usando template literal
+    if (indovinati.length > 0) {
+        risultato.textContent = `Hai indovinato ${indovinati.length} numero/i: ${numeriStringa}`;
+    } else {
+        risultato.textContent = "Non hai indovinato nessun numero";
     }
 
 });
